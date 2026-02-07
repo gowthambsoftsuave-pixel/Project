@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { JobSearchResponse } from '../../../../shared/models/job.model';
 
 @Component({
     selector: 'app-job-search-page',
@@ -7,5 +8,11 @@ import { Component } from '@angular/core';
     standalone: false
 })
 export class JobSearchPageComponent {
+    jobs: JobSearchResponse | null = null;
+
     constructor() { }
+
+    onSearchResults(results: JobSearchResponse): void {
+        this.jobs = results;
+    }
 }

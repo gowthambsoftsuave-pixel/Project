@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { JobSearchRoutingModule } from './job-search-routing.module';
 import { SharedModule } from '../../shared/shared.module';
+import { ReactiveFormsModule } from '@angular/forms';
 import { JobSearchFormComponent } from './components/job-search-form/job-search-form.component';
 import { JobResultsListComponent } from './components/job-results-list/job-results-list.component';
 import { JobSearchPageComponent } from './pages/job-search-page/job-search-page.component';
@@ -15,7 +16,8 @@ import { JobSearchPageComponent } from './pages/job-search-page/job-search-page.
     imports: [
         CommonModule,
         JobSearchRoutingModule,
-        SharedModule
+        SharedModule,
+        ReactiveFormsModule
     ]
 })
 export class JobSearchModule { }

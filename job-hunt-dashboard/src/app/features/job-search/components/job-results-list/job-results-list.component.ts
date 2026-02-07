@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
+import { JobSearchResponse } from '../../../../shared/models/job.model';
 
 @Component({
     selector: 'app-job-results-list',
@@ -7,5 +8,7 @@ import { Component } from '@angular/core';
     standalone: false
 })
 export class JobResultsListComponent {
+    @Input() jobs: JobSearchResponse | null = null;
+
     constructor() { }
 }

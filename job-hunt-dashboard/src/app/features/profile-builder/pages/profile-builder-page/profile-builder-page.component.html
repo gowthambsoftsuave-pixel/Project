@@ -1,4 +1,8 @@
 <div class="profile-builder-page">
-    <app-profile-form></app-profile-form>
-    <app-skills-selector></app-skills-selector>
+    <app-profile-form (profileUpdate)="onProfileUpdate($event)"></app-profile-form>
+
+    <div *ngIf="profileData" class="profile-preview">
+        <h3>Profile Preview</h3>
+        <pre>{{ profileData | json }}</pre>
+    </div>
 </div>

@@ -1,4 +1,4 @@
 <div class="job-search-page">
-    <app-job-search-form></app-job-search-form>
-    <app-job-results-list></app-job-results-list>
+    <app-job-search-form (searchResults)="onSearchResults($event)"></app-job-search-form>
+    <app-job-results-list [jobs]="jobs"></app-job-results-list>
 </div>

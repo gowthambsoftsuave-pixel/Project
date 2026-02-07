@@ -1,5 +1,49 @@
-<form class="profile-form">
-    <input type="text" placeholder="Full Name">
-    <textarea placeholder="Experience"></textarea>
-    <button type="submit">Save Profile</button>
+<form [formGroup]="profileForm" (ngSubmit)="onSubmit()" class="profile-form">
+    <div class="form-group">
+        <label for="fullName">Full Name</label>
+        <input id="fullName" type="text" formControlName="fullName" placeholder="Your Name">
+        <div *ngIf="profileForm.get('fullName')?.touched && profileForm.get('fullName')?.invalid" class="error">
+            <small>Full name is required.</small>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label for="experienceLevel">Experience Level</label>
+        <select id="experienceLevel" formControlName="experienceLevel">
+            <option value="">Select Level</option>
+            <option *ngFor="let level of levels" [value]="level">{{ level }}</option>
+        </select>
+    </div>
+
+    <div class="form-section">
+        <h3>Preferred Countries</h3>
+        <div formArrayName="preferredCountries">
+            <div *ngFor="let country of preferredCountries.controls; let i=index" class="dynamic-group">
+                <select [formControlName]="i">
+                    <option value="">Select Country</option>
+                    <option *ngFor="let c of countries$ | async" [value]="c.cca2">{{ c.name.common }}</option>
+                </select>
+                <button type="button" (click)="removeCountry(i)" class="btn-remove">-</button>
+            </div>
+        </div>
+        <button type="button" (click)="addCountry()" class="btn-add">+ Add Country</button>
+    </div>
+
+    <div class="form-section">
+        <h3>Skills</h3>
+        <div formArrayName="skills">
+            <div *ngFor="let skill of skills.controls; let i=index" class="dynamic-group">
+                <input [formControlName]="i" placeholder="e.g. Angular, TypeScript">
+                <button type="button" (click)="removeSkill(i)" class="btn-remove">-</button>
+            </div>
+        </div>
+        <button type="button" (click)="addSkill()" class="btn-add">+ Add Skill</button>
+    </div>
+
+    <div class="form-group">
+        <label for="expectedSalary">Expected Salary</label>
+        <input id="expectedSalary" type="number" formControlName="expectedSalary" placeholder="e.g. 80000">
+    </div>
+
+    <button type="submit" [disabled]="profileForm.invalid" class="btn-submit">Save Profile</button>
 </form>

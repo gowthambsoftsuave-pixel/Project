@@ -1,4 +1,45 @@
-<form class="job-search-form">
-    <input type="text" placeholder="Search jobs...">
-    <button type="submit">Search</button>
+<form [formGroup]="searchForm" (ngSubmit)="onSubmit()" class="search-form">
+    <div class="form-group">
+        <label for="keyword">Keyword</label>
+        <input id="keyword" type="text" formControlName="keyword" placeholder="e.g. Angular, Developer">
+        <div *ngIf="searchForm.get('keyword')?.touched && searchForm.get('keyword')?.invalid" class="error">
+            <small *ngIf="searchForm.get('keyword')?.errors?.['required']">Keyword is required.</small>
+            <small *ngIf="searchForm.get('keyword')?.errors?.['minlength']">Minimum 2 characters required.</small>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label for="country">Country</label>
+        <select id="country" formControlName="country">
+            <option value="">Select a country</option>
+            <option *ngFor="let country of countries$ | async" [value]="country.cca2">
+                {{ country.name.common }}
+            </option>
+        </select>
+        <div *ngIf="searchForm.get('country')?.touched && searchForm.get('country')?.invalid" class="error">
+            <small>Please select a country.</small>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label for="minSalary">Min Salary</label>
+        <input id="minSalary" type="number" formControlName="minSalary" placeholder="e.g. 50000">
+    </div>
+
+    <div class="form-group">
+        <label for="jobType">Job Type</label>
+        <select id="jobType" formControlName="jobType">
+            <option value="">Any</option>
+            <option *ngFor="let type of jobTypes" [value]="type">{{ type }}</option>
+        </select>
+    </div>
+
+    <div class="form-group checkbox">
+        <label for="remoteOnly">
+            <input id="remoteOnly" type="checkbox" formControlName="remoteOnly">
+            Remote Only
+        </label>
+    </div>
+
+    <button type="submit" [disabled]="searchForm.invalid">Search Jobs</button>
 </form>
