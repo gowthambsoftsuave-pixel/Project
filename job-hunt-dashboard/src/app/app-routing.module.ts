@@ -6,6 +6,7 @@ const routes: Routes = [
     { path: 'job-search', loadChildren: () => import('./features/job-search/job-search.module').then(m => m.JobSearchModule) },
     { path: 'application-tracker', loadChildren: () => import('./features/application-tracker/application-tracker.module').then(m => m.ApplicationTrackerModule) },
     { path: 'profile-builder', loadChildren: () => import('./features/profile-builder/profile-builder.module').then(m => m.ProfileBuilderModule) },
+    { path: 'api-test', loadChildren: () => import('./features/api-test/api-test.module').then(m => m.ApiTestModule) },
     { path: '', redirectTo: 'dashboard', pathMatch: 'full' }
 ];
 

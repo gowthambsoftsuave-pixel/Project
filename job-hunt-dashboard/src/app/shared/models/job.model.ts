@@ -1,13 +1,22 @@
-export interface Job {
+export interface AdzunaJob {
     id: string;
     title: string;
-    company: string;
-    location: string;
-    status: 'applied' | 'interviewing' | 'offered' | 'rejected' | 'closed';
-    salaryRange: {
-        min: number;
-        max: number;
-        currency: string;
+    description: string;
+    company: {
+        display_name: string;
     };
-    postedDate: Date;
+    location: {
+        display_name: string;
+        area: string[];
+    };
+    salary_min?: number;
+    salary_max?: number;
+    contract_type?: string;
+    created: string;
+    redirect_url: string;
+}
+
+export interface JobSearchResponse {
+    count: number;
+    results: AdzunaJob[];
 }

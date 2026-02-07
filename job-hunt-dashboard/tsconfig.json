@@ -14,9 +14,8 @@
     "importHelpers": true,
     "target": "ES2022",
     "module": "ESNext",
-    "moduleResolution": "node",
-    "esModuleInterop": true,
-    "baseUrl": "./"
+    "moduleResolution": "bundler",
+    "esModuleInterop": true
   },
   "angularCompilerOptions": {
     "enableI18nLegacyMessageIdFormat": false,
