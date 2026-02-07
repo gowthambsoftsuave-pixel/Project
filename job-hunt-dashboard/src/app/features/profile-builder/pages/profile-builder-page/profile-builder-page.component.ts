@@ -7,5 +7,11 @@ import { Component } from '@angular/core';
     standalone: false
 })
 export class ProfileBuilderPageComponent {
+    profileData: any = null;
+
     constructor() { }
+
+    onProfileUpdate(data: any): void {
+        this.profileData = data;
+    }
 }
