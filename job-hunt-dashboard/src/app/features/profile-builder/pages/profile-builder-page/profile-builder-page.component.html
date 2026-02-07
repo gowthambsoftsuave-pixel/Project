@@ -2,7 +2,15 @@
     <app-profile-form (profileUpdate)="onProfileUpdate($event)"></app-profile-form>
 
     <div *ngIf="profileData" class="profile-preview">
-        <h3>Profile Preview</h3>
+        <h3>Profile Summary: {{ profileData.fullName | uppercase }}</h3>
+        <div class="preview-info">
+            <p><strong>Level:</strong> {{ profileData.experienceLevel }}</p>
+            <p><strong>Skills:</strong> {{ profileData.skills | listFormat }}</p>
+            <p><strong>Preferred Locations:</strong> {{ profileData.preferredCountries | listFormat }}</p>
+            <p><strong>Goal Salary:</strong> {{ profileData.expectedSalary | currency }}</p>
+        </div>
+
+        <h4>Technical Data (Debug)</h4>
         <pre>{{ profileData | json }}</pre>
     </div>
 </div>
