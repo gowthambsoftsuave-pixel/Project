@@ -1,6 +1,6 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Observable } from 'rxjs';
+import { Observable, finalize } from 'rxjs';
 import { CountryApiService } from '../../../../core/services/country-api.service';
 import { JobApiService } from '../../../../core/services/job-api.service';
 import { Country } from '../../../../shared/models/country.model';
@@ -18,6 +18,7 @@ export class JobSearchFormComponent implements OnInit {
     searchForm: FormGroup;
     countries$: Observable<Country[]>;
     jobTypes = ['Full-time', 'Part-time', 'Contract', 'Internship'];
+    isLoading = false;
 
     constructor(
         private fb: FormBuilder,
@@ -38,12 +39,19 @@ export class JobSearchFormComponent implements OnInit {
 
     onSubmit(): void {
         if (this.searchForm.valid) {
+            this.isLoading = true;
             const { keyword, country, minSalary, jobType, remoteOnly } = this.searchForm.value;
-            // Note: Adzuna API has specific params, adding remote filtering if supported or handled later
-            this.jobApi.searchJobs(keyword, country, 1).subscribe({
-                next: (response) => this.searchResults.emit(response),
-                error: (err) => console.error('Search error:', err)
-            });
+
+            this.jobApi.searchJobs(keyword, country, 1, { minSalary, jobType, remoteOnly })
+                .pipe(finalize(() => this.isLoading = false))
+                .subscribe({
+                    next: (response) => this.searchResults.emit(response),
+                    error: (err) => {
+                        console.error('Search error:', err);
+                        // Optionally emit an empty response or error to the parent to stop loading
+                        this.searchResults.emit({ count: 0, results: [] });
+                    }
+                });
         }
     }
 }

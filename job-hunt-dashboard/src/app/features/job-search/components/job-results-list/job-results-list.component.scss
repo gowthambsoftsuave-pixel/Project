@@ -1,3 +1,10 @@
 .job-results-list {
     list-style: none;
 }
+
+.results-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 1.5rem;
+    margin-top: 1rem;
+}
