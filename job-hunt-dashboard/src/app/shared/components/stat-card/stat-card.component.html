@@ -1,0 +1,13 @@
+<div class="stat-card glass-card">
+    <div class="stat-icon">
+        <i [attr.data-lucide]="icon"></i>
+    </div>
+    <div class="stat-info">
+        <p class="stat-title">{{ title }}</p>
+        <h3 class="stat-value">{{ value }}</h3>
+        <div class="stat-trend" *ngIf="trendValue" [class.up]="trend === 'up'" [class.down]="trend === 'down'">
+            <i [attr.data-lucide]="trend === 'up' ? 'trending-up' : 'trending-down'"></i>
+            <span>{{ trendValue }}</span>
+        </div>
+    </div>
+</div>

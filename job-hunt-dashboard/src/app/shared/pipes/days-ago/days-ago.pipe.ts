@@ -8,7 +8,7 @@ export class DaysAgoPipe implements PipeTransform {
     transform(value: string | Date | undefined): string {
         if (!value) return '';
 
-        const date = new Date(value);
+        const date = value instanceof Date ? value : new Date(value);
         const now = new Date();
         const diffInMs = now.getTime() - date.getTime();
         const diffInDays = Math.floor(diffInMs / (1000 * 60 * 60 * 24));

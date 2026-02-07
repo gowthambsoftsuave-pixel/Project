@@ -1,0 +1,32 @@
+<div class="job-card card">
+    <div class="job-header">
+        <div class="company-logo">
+            {{ job.company.display_name.charAt(0) }}
+        </div>
+        <div class="job-meta">
+            <h3 class="job-title">{{ job.title }}</h3>
+            <p class="company-name">{{ job.company.display_name }}</p>
+        </div>
+    </div>
+
+    <div class="job-tags">
+        <span class="tag">
+            <i data-lucide="map-pin"></i> {{ job.location.display_name }}
+        </span>
+        <span class="tag" *ngIf="job.contract_type">
+            <i data-lucide="clock"></i> {{ job.contract_type }}
+        </span>
+        <span class="tag">
+            <i data-lucide="calendar"></i> {{ job.created | daysAgo }}
+        </span>
+    </div>
+
+    <div class="job-footer">
+        <div class="salary">
+            <span class="salary-value">{{ job.salary_min | salaryRange: job.salary_max }}</span>
+        </div>
+        <a [href]="job.redirect_url" target="_blank" class="btn btn-primary btn-sm">
+            Apply <i data-lucide="external-link"></i>
+        </a>
+    </div>
+</div>

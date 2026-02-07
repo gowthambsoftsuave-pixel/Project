@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
-import { Observable, throwError } from 'rxjs';
+import { Observable, throwError, timeout } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { environment } from '../../../environments/environment';
 import { JobSearchResponse } from '../../shared/models/job.model';
@@ -19,6 +19,7 @@ export class JobApiService {
         const url = `${this.baseUrl}/${country.toLowerCase()}/search/${page}?what=${encodeURIComponent(query)}&app_id=${this.appId}&app_key=${this.appKey}`;
 
         return this.http.get<JobSearchResponse>(url).pipe(
+            timeout(5000), // Timeout after 5 seconds
             catchError(this.handleError)
         );
     }

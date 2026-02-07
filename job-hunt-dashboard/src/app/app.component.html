@@ -1,1 +1,23 @@
-<router-outlet></router-outlet>
+<div class="app-container">
+    <nav class="navbar">
+        <a routerLink="/" class="logo">
+            <i data-lucide="briefcase"></i>
+            <span>JobHunt</span>
+        </a>
+
+        <div class="nav-links">
+            <a routerLink="/dashboard" routerLinkActive="active">Dashboard</a>
+            <a routerLink="/job-search" routerLinkActive="active">Search</a>
+            <a routerLink="/profile-builder" routerLinkActive="active">Profile</a>
+            <a routerLink="/api-test" routerLinkActive="active">API Test</a>
+        </div>
+
+        <div class="nav-actions">
+            <button class="btn btn-primary">Sign In</button>
+        </div>
+    </nav>
+
+    <main class="main-content">
+        <router-outlet></router-outlet>
+    </main>
+</div>

@@ -1,3 +1,45 @@
 <div class="dashboard-home">
-  <h1>Dashboard Home</h1>
+  <header class="dashboard-header">
+    <div class="header-content">
+      <h1 class="welcome-text">Explore <span class="text-gradient">Opportunities</span></h1>
+      <p class="subtitle">Discover your next career move.</p>
+    </div>
+  </header>
+
+  <div class="dashboard-content">
+    <!-- Fallback Indicator -->
+    <div *ngIf="isUsingFallback" class="fallback-banner">
+      <i data-lucide="info"></i>
+      <span>Displaying saved listings because the connection is slow.</span>
+    </div>
+
+    <!-- Error State -->
+    <div *ngIf="errorMessage && !isUsingFallback" class="error-state card">
+      <i data-lucide="alert-circle"></i>
+      <p>{{ errorMessage }}</p>
+      <button class="btn btn-primary" (click)="fetchFeaturedJobs()">Retry Search</button>
+    </div>
+
+    <!-- Featured Jobs Section -->
+    <section *ngIf="!errorMessage || isUsingFallback" class="featured-jobs">
+      <div class="section-header">
+        <h2 class="section-title">Latest Listings</h2>
+        <a routerLink="/job-search" class="view-all">See more results</a>
+      </div>
+
+      <div class="jobs-grid" [class.loading]="isLoading">
+        <ng-container *ngIf="!isLoading; else loadingTemplate">
+          <app-job-card *ngFor="let job of featuredJobs" [job]="job">
+          </app-job-card>
+        </ng-container>
+      </div>
+    </section>
+  </div>
 </div>
+
+<ng-template #loadingTemplate>
+  <div class="loading-state">
+    <div class="spinner"></div>
+    <p>Loading the latest jobs...</p>
+  </div>
+</ng-template>

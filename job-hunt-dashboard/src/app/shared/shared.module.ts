@@ -4,13 +4,17 @@ import { StatusFilterPipe } from './pipes/status-filter/status-filter.pipe';
 import { SalaryRangePipe } from './pipes/salary-range/salary-range.pipe';
 import { DaysAgoPipe } from './pipes/days-ago/days-ago.pipe';
 import { ListFormatPipe } from './pipes/list-format/list-format.pipe';
+import { StatCardComponent } from './components/stat-card/stat-card.component';
+import { JobCardComponent } from './components/job-card/job-card.component';
 
 @NgModule({
     declarations: [
         StatusFilterPipe,
         SalaryRangePipe,
         DaysAgoPipe,
-        ListFormatPipe
+        ListFormatPipe,
+        StatCardComponent,
+        JobCardComponent
     ],
     imports: [
         CommonModule
@@ -20,7 +24,9 @@ import { ListFormatPipe } from './pipes/list-format/list-format.pipe';
         StatusFilterPipe,
         SalaryRangePipe,
         DaysAgoPipe,
-        ListFormatPipe
+        ListFormatPipe,
+        StatCardComponent,
+        JobCardComponent
     ]
 })
 export class SharedModule { }
