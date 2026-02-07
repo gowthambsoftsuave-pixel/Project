@@ -1,17 +1,8 @@
 <div class="results-container" *ngIf="jobs">
     <h3>Job Results ({{ jobs.count | number }} found)</h3>
 
-    <div *ngFor="let job of jobs.results" class="job-card">
-        <div class="job-header">
-            <h4>{{ job.title | uppercase }}</h4>
-            <span class="freshness">{{ job.created | daysAgo }}</span>
-        </div>
-        <div class="job-details">
-            <p><strong>Company:</strong> {{ job.company.display_name }}</p>
-            <p><strong>Location:</strong> {{ job.location.display_name | titlecase }}</p>
-            <p><strong>Salary:</strong> {{ job.salary_min | salaryRange:job.salary_max }}</p>
-        </div>
-        <a [href]="job.redirect_url" target="_blank" class="view-btn">View Details</a>
+    <div class="results-grid">
+        <app-job-card *ngFor="let job of jobs.results" [job]="job"></app-job-card>
     </div>
 
     <div *ngIf="jobs.results.length === 0" class="no-results">

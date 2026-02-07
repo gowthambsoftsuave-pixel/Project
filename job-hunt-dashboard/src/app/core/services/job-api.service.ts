@@ -15,8 +15,27 @@ export class JobApiService {
 
     constructor(private http: HttpClient) { }
 
-    searchJobs(query: string, country: string, page: number = 1): Observable<JobSearchResponse> {
-        const url = `${this.baseUrl}/${country.toLowerCase()}/search/${page}?what=${encodeURIComponent(query)}&app_id=${this.appId}&app_key=${this.appKey}`;
+    searchJobs(
+        query: string,
+        country: string,
+        page: number = 1,
+        filters: { jobType?: string; minSalary?: number; remoteOnly?: boolean } = {}
+    ): Observable<JobSearchResponse> {
+        let url = `${this.baseUrl}/${country.toLowerCase()}/search/${page}?what=${encodeURIComponent(query)}&app_id=${this.appId}&app_key=${this.appKey}`;
+
+        if (filters.minSalary) {
+            url += `&salary_min=${filters.minSalary}`;
+        }
+
+        if (filters.jobType) {
+            const type = filters.jobType.toLowerCase();
+            if (type === 'full-time') url += '&full_time=1';
+            else if (type === 'part-time') url += '&part_time=1';
+            else if (type === 'contract') url += '&contract=1';
+            // Internship is not a direct param in Adzuna standard API search usually, 
+            // but we can append it to the query or handle as per Adzuna docs if known.
+            // For now, we'll map the primary ones.
+        }
 
         return this.http.get<JobSearchResponse>(url).pipe(
             timeout(5000), // Timeout after 5 seconds

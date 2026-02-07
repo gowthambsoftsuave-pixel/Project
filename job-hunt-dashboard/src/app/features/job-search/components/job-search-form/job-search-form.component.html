@@ -41,5 +41,8 @@
         </label>
     </div>
 
-    <button type="submit" [disabled]="searchForm.invalid">Search Jobs</button>
+    <button type="submit" [disabled]="searchForm.invalid || isLoading">
+        <span *ngIf="!isLoading">Search Jobs</span>
+        <span *ngIf="isLoading">Searching...</span>
+    </button>
 </form>
