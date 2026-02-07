@@ -1,0 +1,22 @@
+<div class="api-test-container">
+    <h1>API Connectivity Test</h1>
+
+    <section>
+        <h2>Job Search API (Adzuna)</h2>
+        <pre>{{ jobs$ | async | json }}</pre>
+    </section>
+
+    <hr>
+
+    <section>
+        <h2>Countries API (REST Countries)</h2>
+        <pre>{{ (countries$ | async) | json }}</pre>
+    </section>
+
+    <hr>
+
+    <section>
+        <h2>Currency API (Frankfurter)</h2>
+        <pre>{{ currency$ | async | json }}</pre>
+    </section>
+</div>
